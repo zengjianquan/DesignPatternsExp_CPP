@@ -2,10 +2,44 @@
 //
 
 #include <iostream>
+#include "Decorator.h"
+#include "Decorator1.h"
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    ReadPrintComponent* readPrintComponent = new ReadPrintComponent();
+    readPrintComponent->Dowork();
+    delete readPrintComponent;
+    cout <<endl;
+
+    ReadCoutComponent* readCoutComponent = new ReadCoutComponent();
+    readCoutComponent->Dowork();
+    delete readCoutComponent;
+    cout << endl;
+
+    //============== Decorator ==============
+    cout << "==========Decorator========" << endl;
+    cout << endl;
+
+    PrintComponent_Decorator* printComponent = new PrintComponent_Decorator();
+
+    CoutComponent_Decorator* coutComponent = new CoutComponent_Decorator();
+
+    //装饰器中传入不同的component, 为component添加不同的操作(职责)
+    ReadDecorator* readPrintCompoentDecorator = new ReadDecorator(printComponent);
+    readPrintCompoentDecorator->Dowork();
+    
+    WriteDecorator* writePrintCompoentDecorator = new WriteDecorator(printComponent);
+    writePrintCompoentDecorator->Dowork();
+
+    cout << endl;
+
+    ReadDecorator* readCoutComponentDecorator = new ReadDecorator(coutComponent);
+    readCoutComponentDecorator->Dowork();
+
+    WriteDecorator* writeCoutComponentDecorator = new WriteDecorator(coutComponent);
+    writeCoutComponentDecorator->Dowork();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
